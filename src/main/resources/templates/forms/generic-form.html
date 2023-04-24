@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/layout :: layout(~{::title}, ~{::section})}">
+    <head>
+        <title>Register Student</title>
+    </head>
+    <body>
+        <div th:fragment="generic-form">
+            <form method="post" th:action="${formAction}">
+                <h3 class="formHeader"><span th:text="${formHeader}"></span> &nbsp;</h3>
+                <div class="divTable" style="width: 75%; border: 1px solid #000; margin: auto;">
+                    <div class="divTableBody">
+                        <div class="divTableRow">
+                            <div class="divTableCell">&nbsp;</div>
+                            <div class="divTableCell">&nbsp;</div>
+                            <div class="divTableCell">&nbsp;</div>
+                        </div>
+                        <div class="divTableRow" th:each="element : ${formElementList}">
+                            <div class="formLabel" th:text="${element.label}">&nbsp;</div>
+                            <div class="divTableCell">
+                                <span th:if="${element.inputType != 'textarea' && element.inputType != 'select'}">
+                                    <input th:attr="type=${element.inputType}, name=${element.name}, value=${element.value}"/>
+                                </span>
+                                <span th:if="${element.inputType == 'textarea'}">
+                                    <textarea th:attr="name=${element.name}, value=${element.value}, rows=${element.rows}, cols=${element.columns}"></textarea>
+                                </span>
+                                <span th:if="${element.inputType == 'select'}">
+                                    <select th:attr="name=${element.name}, value=${element.value}">
+                                        <option value="">-- Select Type --</option>
+                                        <option th:each="option : ${element.optionList}" th:value="${option.value}" th:text="${option.displayValue}"></option>
+                                    </select>
+                                </span>
+                            </div>
+                            <div class="errorLabel" th:text="${element.error ne null} ? ${element.error}: ''"></div>
+                        </div>
+                    </div>
+                </div>
+                <p>
+                <div style="margin: auto; width: 75%; text-align: center;">
+                    <button type="submit" class="formButton" th:text="${submitButton}"></button>
+                </div>
+                
+            </form>
+        </div>
+    </body>
+</html>

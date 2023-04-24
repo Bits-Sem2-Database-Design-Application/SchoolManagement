@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/layout :: layout(~{::title}, ~{::nav}, ~{::section})}">
+    <head>
+        <title>Student Management System :: Edit Student Details</title>
+    </head>
+    <body>
+        <nav style="width: 100%; margin: auto;">
+            <div th:replace="~{navbar.html :: adminNavBar}"></div>
+        </nav>
+        <section>
+            <p>
+            <div class="successMessage" th:if="${successMessage ne null}" 
+                 th:text="'&nbsp;'+ ${successMessage}" 
+                 style="font-size: 14px; width: 95%;">
+            </div>
+            <div class="errorMessage" th:if="${errorMessage ne null}" 
+                 th:text="'&nbsp;'+ ${errorMessage}" 
+                 style="font-size: 14px; width: 95%;">
+            </div>
+            <form method="post" action="/admin/student-application/update">
+                <div style="margin: auto; width: 95%; ">
+                    <div class="divTable" style="width: 75%; border: 1px solid #000; margin: auto;">
+                        <div class="divTableBody">
+                            <div class="divTableRow">
+                                <div class="formLabel">Student Remarks: </div>
+                                <div class="divTableCell">
+                                    <textarea cols="30" rows="3" readonly th:text="${studentRemarks}"></textarea>
+                                </div>
+                                <div class="errorLabel">&nbsp;</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin: auto; width: 100%;" th:if="${changeRequestType == 'Address'}">
+                        <div th:replace="~{forms/address-form.html :: address-form}"></div>
+                    </div>
+                    <p>
+                    <div style="margin: auto; width: 100%;" th:if="${changeRequestType == 'Contact'}">
+                        <h3 class="formHeader">:: Student Contact Details &nbsp;</h3>
+                        <div class="divTable" style="width: 75%; border: 1px solid #000; margin: auto;">
+                            <div class="divTableBody">
+                                <div class="divTableRow">
+                                    <div class="formLabel">* Primary Number:&nbsp;</div>
+                                    <div class="divTableCell">
+                                        <input type="text" id="countryCode" 
+                                               maxlength="2" size="2" name="countryCode" 
+                                               th:attr="value=${primaryContact?.countryCode}"/>&nbsp;
+                                        <input type="text" id="phoneNumber" maxlength="10" 
+                                               size="10" name="phoneNumber"
+                                               th:attr="value=${primaryContact?.contactNumber}"/>
+                                        <select name="contactType" id="contactType">
+                                            <option value="Unspecified">--Select--</option>
+                                            <option value="Mobile" th:selected="${primaryContact?.contactType == 'Mobile'}">Mobile</option>
+                                            <option value="Landline" th:selected="${primaryContact?.contactType == 'Landline'}">Landline</option>
+                                        </select>                            
+                                    </div>
+                                    <div class="errorLabel" th:text="${errorPhoneNumber ne null} ? ${errorPhoneNumber}: ''"></div>
+                                </div>
+                                <div class="divTableRow">
+                                    <div class="formLabel">Alternate Number:&nbsp;</div>
+                                    <div class="divTableCell">
+                                        <input type="text" id="altCountryCode" value="91" 
+                                               maxlength="2" size="2" name="altCountryCode"
+                                               th:attr="value=${alternateContact?.countryCode}"/>&nbsp;
+                                        <input type="text" id="altPhoneNumber" 
+                                               maxlength="10" size="10" 
+                                               name="altPhoneNumber"
+                                               th:attr="value=${alternateContact?.contactNumber}"/>
+                                        <select name="altContactType" id="altContactType">
+                                            <option value="0">--Select--</option>
+                                            <option value="Mobile" 
+                                                    th:selected="${primaryContact?.contactType == 'Mobile'}">
+                                                Mobile
+                                            </option>
+                                            <option value="Landline" 
+                                                    th:selected="${primaryContact?.contactType == 'Landline'}">
+                                                Landline
+                                            </option>
+                                        </select>                            
+                                    </div>
+                                    <div class="errorLabel" th:text="${errorAltPhoneNumber ne null} ? ${errorAltPhoneNumber}: ''"></div>
+                                </div>  
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div style="margin: auto; width: 95%; text-align: center;">
+                        <input type="hidden" name="id" th:attr="value=${id}"/>
+                        <input type="hidden" name="studentId" th:attr="value=${studentId}"/>
+                        <input type="hidden" name="changeRequestType" th:attr="value=${changeRequestType}"/>
+                        <button type="submit">Update</button>
+                    </div>
+            </form>
+        </section>
+    </body>
+</html>
+

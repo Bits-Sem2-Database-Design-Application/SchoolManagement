@@ -1,0 +1,60 @@
+body {
+    font-family: Verdana Arial, Helvetica, sans-serif;
+    font-size: 12px;
+}
+
+
+#mainTable {
+    margin-left: auto;
+    margin-right: auto;
+    width: 800px;
+    table-layout:fixed;
+    border: 1px solid black;
+    border-spacing: 0px;
+}
+
+#mainTable td {
+    vertical-align: top;
+    /*border: 1px solid black;*/
+}
+
+#landingMenu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+#landingMenu li {
+    float: left;
+}
+
+#landingMenu li.active {
+    background-color: #0099ff;
+}
+
+
+#landingMenu li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 10px 12px;
+    text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+    background-color: #006699;
+}
+
+#permanentAddressTable {
+    border: none;
+}
+
+#permanentAddressTable td {
+    vertical-align: top;
+    border: none;
+}
+
+

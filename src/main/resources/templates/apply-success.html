@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/layout :: layout(~{::title}, ~{::nav}, ~{::section})}">
+
+    <head>
+        <title>Student Application Accepted</title>
+    </head>
+    <body>
+        <nav style="width: 100%; margin: auto;">
+            <div th:replace="~{navbar.html :: landingNavBar}"></div>
+        </nav>
+        <section>
+            <div>
+                <h4>
+                    <p>Dear student,
+                    <p>Your application for program xxx has been accepted!
+                    <p>School administration is verifying your data and certificates.
+                    <p>In case any discrepancies are found or additional documentation is required
+                       we will communicate same on your given email xxx.
+                    <p>Approval or rejection will be communicated over your email xxx
+                    <p>along with further action to be taken from your side.
+                </h4>
+            </div>
+        </section>
+    </body>
+</html>

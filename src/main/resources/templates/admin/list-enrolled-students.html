@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/layout :: layout(~{::title}, ~{::nav}, ~{::section})}">
+    <head>
+        <title>Student Management System :: Admin Home</title>
+    </head>
+    <body>
+        <nav style="width: 100%; margin: auto;">
+            <div th:replace="~{navbar.html :: adminNavBar}"></div>
+        </nav>
+        <section>
+            <p>
+            <div class="successMessage" th:if="${successMessage ne null}" 
+                 th:text="'&nbsp;'+ ${successMessage}" style="width: 95%;"></div>
+            <p>
+            <h3 class="formHeader" style="width: 95%;">:: List of Enrolled Students &nbsp;</h3>
+            <div style="margin: auto; width: 95%;">
+                <table class="tb">
+                    <tr>
+                        <th>First name</th>
+                        <th>Birthdate</th>
+                        <th>Gender</th>
+                        <th>Email</th>
+                        <th>Program</th>
+                        <th>R. Number</th>
+                        <th>Sem</th>
+                        <th>City</th>
+                        <th>Contact</th>
+                    </tr>
+                    <tr th:each="student : ${enrolledStudentList}">                    
+                        <td th:text="${student.firstName}"></td>
+                        <td th:text="${student.birthdate}"></td>
+                        <td th:text="${student.gender}"></td>
+                        <td th:text="${student.email}"></td>
+                        <td th:text="${student.abbreviation}"></td>
+                        <td th:text="${student.registrationNumber}"></td>
+                        <td th:text="${student.currentSemister}"></th>
+                        <td th:text="${student.city}"></td>
+                        <td th:text="${student.countryCode + '-' + student.contactNumber}"></td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+    </body>
+</html>
+

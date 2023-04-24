@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/layout :: layout(~{::title}, ~{::nav}, ~{::section})}">
+    <head>
+        <title>Student Management System :: Admin Home</title>
+    </head>
+    <body>
+        <nav style="width: 100%; margin: auto;">
+            <div th:replace="~{navbar.html :: adminNavBar}"></div>
+        </nav>
+        <section>
+            <p>
+                <!--form method="post" action="/admin/student-application/review-comments" -->
+            <h3 class="formHeader" style="width: 95%;">::Review Student Application&nbsp;</h3>
+            <div class="divTable" style="width: 95%; border: 1px solid #000; margin: auto;">
+                <div class="divTableBody">
+                    <div class="divTableRow">
+                        <div class="formLabel">First Name: </div>
+                        <div class="divTableCell" th:text="${app.firstName}">&nbsp;</div>
+                        <div class="formLabel">Last Name: </div>
+                        <div class="divTableCell" th:text="${app.lastName}">&nbsp;</div>
+                    </div>
+                    <div class="divTableRow">
+                        <div class="formLabel">Birth Date: </div>
+                        <div class="divTableCell" th:text="${app.birthdate}">&nbsp;</div>
+                        <div class="formLabel">Gender: </div>
+                        <div class="divTableCell" th:text="${app.gender}">&nbsp;</div>
+                    </div>
+                    <div class="divTableRow">
+                        <div class="formLabel">Application Date: </div>
+                        <div class="divTableCell" th:text="${app.applicationDate}">&nbsp;</div>
+                        <div class="formLabel">Program: </div>
+                        <div class="divTableCell" th:text="${app.programId.name}">&nbsp;</div>
+                    </div>
+                    <div class="divTableRow">
+                        <div class="formLabel">Status: </div>
+                        <div class="divTableCell" th:text="${app.status}">&nbsp;</div>
+                        <div class="formLabel">Supporting Documents: </div>
+                        <div class="divTableCell">
+                            <a th:href="@{'/admin/student-application/get-pdf?applicationId=' + ${app.id}}" target='new'>
+                                View Docs
+                            </a>
+                        </div>
+                    </div>
+                    <div class="divTableRow">
+                        <div class="formLabel">Email: </div>
+                        <div class="divTableCell" th:text="${app.email}">&nbsp;</div>
+                        <div class="formLabel">&nbsp;</div>
+                        <div class="divTableCell">&nbsp;</div>
+                    </div>
+                    <p>
+                    <div class="divTableRow">
+                        <div class="formLabel">Primary Contact: </div>
+                        <div class="divTableCell" th:text="${primaryContact ne null} ? ${primaryContact} : ''">&nbsp;</div>
+                        <div class="formLabel">Secondary Contact: </div>
+                        <div class="divTableCell" th:text="${secondaryContact ne null} ? ${secondaryContact} : ''">&nbsp;</div>
+                    </div>
+                    <p>
+                    <div class="divTableRow">
+                        <div class="formLabel">Permanent Address: </div>
+                        <div class="divTableCell">&nbsp;</div>
+                        <div class="formLabel">Temporary Address: </div>
+                        <div class="divTableCell">&nbsp;</div>
+                    </div>
+                    <div class="divTableRow">
+                        <div class="formLabel">Line 1: </div>
+                        <div class="divTableCell" th:text="${permanentAddress?.line1}">&nbsp;</div>
+                        <div class="formLabel">Line 1: </div>
+                        <div class="divTableCell" th:text="${temporaryAddress?.line1}">&nbsp;</div>
+                    </div>
+                    <div class="divTableRow">
+                        <div class="formLabel">Line 2: </div>
+                        <div class="divTableCell" th:text="${permanentAddress?.line2}">&nbsp;</div>
+                        <div class="formLabel">Line 2: </div>
+                        <div class="divTableCell" th:text="${temporaryAddress?.line2}">&nbsp;</div>
+                    </div>
+                    <div class="divTableRow">
+                        <div class="formLabel">City: </div>
+                        <div class="divTableCell" th:text="${permanentAddress?.city}">&nbsp;</div>
+                        <div class="formLabel">City: </div>
+                        <div class="divTableCell" th:text="${temporaryAddress?.city}">&nbsp;</div>
+                    </div>
+                    <div class="divTableRow">
+                        <div class="formLabel">State: </div>
+                        <div class="divTableCell" th:text="${permanentAddress?.state}">&nbsp;</div>
+                        <div class="formLabel">State: </div>
+                        <div class="divTableCell" th:text="${temporaryAddress?.state}">&nbsp;</div>
+                    </div>
+                    <div class="divTableRow">
+                        <div class="formLabel">Country: </div>
+                        <div class="divTableCell" th:text="${permanentAddress?.country}">&nbsp;</div>
+                        <div class="formLabel">Country: </div>
+                        <div class="divTableCell" th:text="${temporaryAddress?.country}">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+            <br><!--br><br> <br><br><br -->
+            <div th:style="${app.status eq 'Fees Paid' ? 'display:none; ' : ''}+'width: 95%; margin: auto;'"> 
+                <!-- div style="margin: auto; width: 95%; text-align: center;" -->
+                <form method="post" action="/admin/student-application/review-comments">
+                    <div class="divTable" style="width: 85%; margin: auto;"> <!-- -->
+                        <div class="divTableBody">
+                            <div class="divTableRow">
+                                <div class="formLabel" style="vertical-align: top;">* Comments: </div>
+                                <div class="divTableCell">
+                                    <textarea cols="45" rows="3" name="comments"></textarea>
+                                </div>
+                                <div class="errorLabel" style="vertical-align: top;"
+                                     th:text="${commentsError ne null} ? ${commentsError}: ''">
+                                </div>
+                            </div>
+                        </div>
+                    </div>                
+                    <br>
+                    <input type="hidden" name="applicationId" th:attr="value=${app.id}"/>
+                    <button type="submit" class="formButton" name="status"
+                            value="Information Needed">Information Needed</button>&nbsp;&nbsp;
+                    <button type="submit" class="formButton" name="status"
+                            value="Rejected">Reject</button>&nbsp;&nbsp;
+                    <button type="submit" class="formButton" name="status" 
+                            value="Approved">Approve</button>
+
+                </form>
+            </div>            
+            <div th:style="${app.status eq 'Fees Paid' ? '' : 'display:none; '}+'width: 95%; margin: auto; text-align: center;'">
+                <div class="divTable" style="width: 100%; border: 1px solid #000; margin: auto;">
+                    <div class="divTableBody">
+                        <div class="divTableRow">
+                            <div class="formLabel" style="text-align: center;">Bank</div>
+                            <div class="formLabel" style="text-align: center;">Transaction Date</div>
+                            <div class="formLabel" style="text-align: center;">Transaction Number</div>
+                            <div class="formLabel" style="text-align: center;">Transaction Amount</div>
+                        </div>
+                        <div class="divTableRow">
+                            <div class="divTableCell" style="text-align: center;" th:text="${fees?.bank}">&nbsp;</div>
+                            <div class="divTableCell" style="text-align: center;" th:text="${fees?.transactionDate}">&nbsp;</div>
+                            <div class="divTableCell" style="text-align: center;" th:text="${fees?.referenceNumber}">&nbsp;</div>
+                            <div class="divTableCell" style="text-align: center;" th:text="${fees?.transactionAmount}">&nbsp;</div>
+                        </div>
+                    </div>
+                </div>
+                <p>
+                <div style="width: 100%; margin: auto; text-align: center;">
+                    <form method="post" action="/admin/student-application/enroll">
+                        <input type="hidden" name="studentId" th:attr="value=${app.id}"/>
+                        <button type="submit" class="formButton">Enroll Student</button>
+                    </form>
+                </div>
+            </div>
+            <!--/form -->
+            <p>
+        </section>
+    </body>
+</html>
+

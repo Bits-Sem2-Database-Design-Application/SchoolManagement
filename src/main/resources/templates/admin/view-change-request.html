@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/layout :: layout(~{::title}, ~{::nav}, ~{::section})}">
+    <head>
+        <title>Student Management System :: View Change Request</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <nav style="width: 100%; margin: auto;">
+            <div th:replace="~{navbar.html :: adminNavBar}"></div>
+        </nav>
+        <section>
+            <p>
+            <div class="successMessage" th:if="${successMessage ne null}" 
+                 th:text="'&nbsp;'+ ${successMessage}+'<br>'" 
+                 style="font-size: 14px; width: 95%;">
+            </div>
+            <div class="errorMessage" th:if="${errorMessage ne null}" 
+                 th:text="'&nbsp;'+ ${errorMessage}+'<br>'" 
+                 style="font-size: 14px; width: 95%;">
+            </div>
+            <form id="closeChangeRequestForm" method="post" action="/admin/change-request/close">
+                <input type="hidden" name="id" th:attr="value=${changeRequest.id}"/>
+                <input type="hidden" name="adminRemarks" id="formAdminRemarks"/>
+            </form>
+            
+            <form id="editStudentDetailsForm" method="post" action="/admin/student-application/edit">
+                <input type="hidden" name="id" th:attr="value=${changeRequest.id}"/>
+                <input type="hidden" name="changeRequestType" th:attr="value=${changeRequest.changeRequestType}"/>
+                <input type="hidden" name="studentId" th:attr="value=${changeRequest.studentId.id}"/>
+            </form>
+
+            <div style="width: 95%; margin: auto;">
+                <h3 class="formHeader" style="width: 100%;">::View Student Change Request&nbsp;</h3>
+                <div class="divTable" style="width: 100%; border: 1px solid #000; margin: auto;">
+                    <div class="divTableBody">
+                        <div class="divTableRow">
+                            <div class="formLabel">&nbsp;</div>
+                            <div class="divTableCell">&nbsp;</div>
+                            <div class="formLabel">&nbsp;</div>
+                            <div class="divTableCell">&nbsp;</div>
+                        </div>
+                        <div class="divTableRow">
+                            <div class="formLabel">First Name: </div>
+                            <div class="divTableCell" th:text="${changeRequest.studentId.studentApplication.firstName}">&nbsp;</div>
+                            <div class="formLabel">Registration Number: </div>
+                            <div class="divTableCell" th:text="${changeRequest.studentId.registrationNumber}">&nbsp;</div>
+                        </div>
+                        <div class="divTableRow">
+                            <div class="formLabel">Last Name: </div>
+                            <div class="divTableCell" th:text="${changeRequest.studentId.studentApplication.lastName}">&nbsp;</div>
+                            <div class="formLabel">Change Request Status: </div>
+                            <div class="divTableCell" th:text="${changeRequest.status}">&nbsp;</div>
+                        </div>
+                        <div class="divTableRow">
+                            <div class="formLabel">Change Request Type: </div>
+                            <div class="divTableCell" th:text="${changeRequest.changeRequestType == 'Address' ? 'Address Change' : 'Contact Change'}">&nbsp;</div>
+                            <div class="formLabel">Change Request Date: </div>
+                            <div class="divTableCell" th:text="${changeRequest.changeRequestDate}">&nbsp;</div>
+                        </div>
+                        <div class="divTableRow">
+                            <div class="formLabel">&nbsp;</div>
+                            <div class="divTableCell">&nbsp;</div>
+                            <div class="formLabel">&nbsp;</div>
+                            <div class="divTableCell">&nbsp;</div>
+                        </div>
+                        <div class="divTableRow">
+                            <div class="formLabel" style="vertical-align: top;">Student Remarks: </div>
+                            <div class="divTableCell">
+                                <textarea readonly rows="5" cols="25" 
+                                    th:text="${changeRequest.studentRemarks}"></textarea>
+                            </div>
+                            <div class="formLabel" style="vertical-align: top;">
+                                <button onclick="submiteEditStudentDetailsForm(editStudentDetailsForm)" 
+                                    th:text="'Edit '+${changeRequest.changeRequestType}" />
+                            </div>
+                            <div class="divTableCell">&nbsp;</div>
+                        </div>
+                        <div class="divTableRow">
+                            <div class="formLabel" style="vertical-align: top;">Admin Remarks: </div>
+                            <div class="divTableCell">
+                                <textarea rows="5" cols="25" id="adminRemarks" 
+                                          th:text="${changeRequest.adminRemarks}"></textarea>
+                            </div>
+                            <div class="formLabel" style="vertical-align: top;">
+                                <button onclick="submitCloseChangeRequestForm(closeChangeRequestForm, adminRemarks, formAdminRemarks)">
+                                    Close Change Request
+                                </button>
+                            </div>
+                            <div class="divTableCell">&nbsp;</div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </section>
+    </body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/layout :: layout(~{::title}, ~{::nav}, ~{::section})}">
+    <head>
+        <title>Student Management System :: Login</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <nav><div th:replace="~{navbar.html :: landingNavBar}"></div></nav>
+        
+        <section>
+            <p>
+            <p>
+            <div class="errorMessage" th:if="${errorMessage ne null}" th:text="'&nbsp;'+ ${errorMessage}"></div>   
+            <div class="successMessage" th:if="${successMessage ne null}" th:text="'&nbsp;'+ ${successMessage}"></div>
+            <div class="successMessage" th:if="${successMessage1 ne null}" th:text="'&nbsp;'+ ${successMessage1}"></div>
+            <br/>
+            <form method="post" th:action="@{/login}">
+
+                <h3 class="formHeader">:: Login Form &nbsp;</h3>
+                <div class="divTable" style="width: 75%; border: 1px solid #000; margin: auto;">
+                    <div class="divTableBody">
+                        <div class="divTableRow">
+                            <div class="divTableCell">&nbsp;</div>
+                            <div class="divTableCell">&nbsp;</div>
+                            <div class="divTableCell">&nbsp;</div>
+                        </div>
+                        <div class="divTableRow">
+                            <div class="formLabel">* Username:&nbsp;</div>
+                            <div class="divTableCell">
+                                <input type="text" id="username" name="username"/>
+                            </div>
+                            <div class="errorLabel" th:text="${errorUsername ne null} ? ${errorUsername}: ''"></div>
+                        </div>
+                        <div class="divTableRow">
+                            <div class="formLabel">* Password:&nbsp;</div>
+                            <div class="divTableCell">
+                                <input type="password" id="password" name="password"/>
+                            </div>
+                            <div class="errorLabel" th:text="${errorPassword ne null} ? ${errorPassword}: ''"></div>
+                        </div>
+                        <div class="divTableRow">
+                            <div class="divTableCell">&nbsp;</div>
+                            <div class="divTableCell">&nbsp;</div>
+                            <div class="divTableCell">&nbsp;</div>
+                        </div>
+                    </div>
+                </div>
+                <p>
+                <div style="margin: auto; width: 75%; text-align: center;">
+                    <button type="submit" class="formButton" >Login</button>
+                    <p>
+                    <span> Not registered ?
+                        <a th:href="@{/register}">Register</a>
+                    </span>
+                        &nbsp;<b>::</b>&nbsp;
+                    <span> Forgot Credentials ?
+                        <a th:href="@{/reset-password}">Reset Password</a>
+                    </span>
+                </div>
+            </form>
+        </section>
+    </body>
+</html>

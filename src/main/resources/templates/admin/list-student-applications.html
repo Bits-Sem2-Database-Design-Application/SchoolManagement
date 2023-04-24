@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/layout :: layout(~{::title}, ~{::nav}, ~{::section})}">
+    <head>
+        <title>Student Management System :: Admin Home</title>
+    </head>
+    <body>
+        <nav style="width: 100%; margin: auto;">
+            <div th:replace="~{navbar.html :: adminNavBar}"></div>
+        </nav>
+        <section>
+            <p>
+            <div class="successMessage" th:if="${successMessage ne null}" 
+                 th:text="'&nbsp;'+ ${successMessage}" style="width: 95%;"></div>
+            <p>
+            <h3 class="formHeader" style="width: 95%;">:: List of new Student Applications &nbsp;</h3>
+            <div style="margin: auto; width: 95%;">
+                <table class="tb">
+                    <tr>
+                        <th>First name</th>
+                        <th>Last name</th>
+                        <th>Program</th>
+                        <th>Application Date</th>
+                        <th>Status</th>
+                    </tr>
+                    <tr th:each="app : ${applicationList}">                    
+                        <td th:text="${app.firstName}"></td>
+                        <td th:text="${app.lastName}"></td>
+                        <td th:text="${app.programId.abbreviation}"></td>
+                        <td th:text="${app.applicationDate}"></td>
+                        <td>
+                            <a th:href="@{'/admin/student-application?applicationId=' + ${app.id}}" 
+                               th:text="${app.status}">
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+    </body>
+</html>
+

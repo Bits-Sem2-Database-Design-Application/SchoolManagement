@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/layout :: layout(~{::title}, ~{::nav}, ~{::section})}">
+    <head>
+        <title>Student Management System :: Student Change Requests</title>
+    </head>
+    <body>
+        <nav style="width: 100%; margin: auto;">
+            <div th:replace="~{navbar.html :: studentNavBar}"></div>
+        </nav>
+        <section>
+            <p>
+            <div class="successMessage" th:if="${successMessage ne null}" 
+                 th:text="'&nbsp;'+ ${successMessage}" style="width: 95%;"></div>
+            <p>
+            <h3 class="formHeader" style="width: 95%;"><span th:text="${formHeader}"></span>&nbsp;</h3>
+            <div style="margin: auto; width: 95%;">
+                <table class="tb">
+                    <tr>
+                        <th>Request Type</th>
+                        <th>Request Date</th>
+                        <th>Student Remarks</th>
+                        <th>Admin Remarks</th>
+                        <th>Status</th>
+                    </tr>
+                    <tr th:each="cr : ${changeRequestList}">                    
+                        <td th:text="${cr.changeRequestType}"></td>
+                        <td th:text="${cr.changeRequestDate}"></td>
+                        <td th:text="${cr.studentRemarks}"></td>
+                        <td th:text="${cr.adminRemarks}"></td>
+                        <td th:text="${cr.status}"></td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+    </body>
+</html>
+

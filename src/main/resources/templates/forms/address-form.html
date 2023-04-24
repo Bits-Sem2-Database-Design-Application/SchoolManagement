@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Document defines fragment for obtaining Student Contact Details</title>
+    </head>
+    <body>
+        <div th:fragment="address-form">
+            <h3 class="formHeader">:: Student Address Details &nbsp;</h3>
+            <div class="divTable" style="width: 75%; border: 1px solid #000; margin: auto;">
+                <div class="divTableBody">
+                    <div class="divTableRow">
+                        <div class="divTableCell">&nbsp;</div>
+                        <div class="divTableCell">&nbsp;</div>
+                        <div class="errorLabel">&nbsp;</div>
+                    </div>
+                    <div class="divTableRow">
+                        <div class="formLabel">&nbsp;</div>
+                        <div class="divTableCell">
+                            <table id="permanentAddressTable">
+                                <tr>
+                                    <td style="text-align: right"><b>* Permanent Address: </b></td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right"><b>Line 1: </b></td>
+                                    <td><input type="text" id="line1" name="line1" th:attr="value=${permanentAddress?.line1}"/></td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right"><b>Line 2: </b></td>
+                                    <td><input type="text" id="line2" name="line2" th:attr="value=${permanentAddress?.line2}"/></td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right"><b>City: </b></td>
+                                    <td>
+                                        <select name="city" id="city">
+                                            <option value="Unspecified">--Select--</option>
+                                            <option value="Pune" th:selected="${permanentAddress?.city == 'Pune'}">Pune</option>
+                                            <option value="Mumbai" th:selected="${permanentAddress?.city == 'Mumbai'}">Mumbai</option>
+                                            <option value="Chennai" th:selected="${permanentAddress?.city == 'Chennai'}">Chennai</option>
+                                            <option value="Bangalore" th:selected="${permanentAddress?.city == 'Bangalore'}">Bangalore</option>
+                                        </select>                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right"><b>State: </b></td>
+                                    <td>
+                                        <select name="state" id="state">
+                                            <option value="Unspecified">--Select--</option>
+                                            <option value="Maharashtra" th:selected="${permanentAddress?.state == 'Maharashtra'}">Maharashtra</option>
+                                            <option value="Tamil Nadu" th:selected="${permanentAddress?.state == 'Tamil Nadu'}">Tamil Nadu</option>
+                                            <option value="Karnataka" th:selected="${permanentAddress?.state == 'Karnataka'}">Karnataka</option>
+                                            <option value="Rajasthan" th:selected="${permanentAddress?.state == 'Rajasthan'}">Rajasthan</option>
+                                        </select>                                          
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right"><b>Country: </b></td>
+                                    <td>
+                                        <select name="country" id="country">
+                                            <option value="0">--Select--</option>
+                                            <option value="India" th:selected="${permanentAddress?.country == 'India'}">India</option>
+                                        </select>   
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right">&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>       
+                                <tr>
+                                    <td style="text-align: right"><b>Temporary Address: </b></td>
+                                    <td><input type="checkbox" id="tmpSameAsAbove" name="tmpSameAsAbove" checked="checked"/> Same as above</td>
+                                </tr>       
+                                <tr>
+                                    <td style="text-align: right"><b>Line 1: </b></td>
+                                    <td><input type="text" id="tmpLine1" name="tmpLine1" th:attr="value=${temporaryAddress?.line1}"/></td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right"><b>Line 2: </b></td>
+                                    <td><input type="text" id="tmpLine2" name="tmpLine2" th:attr="value=${temporaryAddress?.line2}"/></td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right"><b>City: </b></td>
+                                    <td>
+                                        <select name="tmpCity" id="tmpCity">
+                                            <option value="0">--Select--</option>
+                                            <option value="Pune" th:selected="${temporaryAddress?.city == 'Pune'}">Pune</option>
+                                            <option value="Mumbai" th:selected="${temporaryAddress?.city == 'Mumbai'}">Mumbai</option>
+                                            <option value="Chennai" th:selected="${temporaryAddress?.city == 'Chennai'}">Chennai</option>
+                                            <option value="Bangalore" th:selected="${temporaryAddress?.city == 'Bangalore'}">Bangalore</option>
+                                        </select>                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right"><b>State: </b></td>
+                                    <td>
+                                        <select name="tmpState" id="tmpState">
+                                            <option value="0">--Select--</option>
+                                            <option value="Maharashtra" th:selected="${temporaryAddress?.state == 'Maharashtra'}">Maharashtra</option>
+                                            <option value="Tamil Nadu" th:selected="${temporaryAddress?.state == 'Tamil Nadu'}">Tamil Nadu</option>
+                                            <option value="Karnataka" th:selected="${temporaryAddress?.state == 'Karnataka'}">Karnataka</option>
+                                            <option value="Rajasthan" th:selected="${temporaryAddress?.state == 'Rajasthan'}">Rajasthan</option>
+                                        </select>                                          
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: right"><b>Country: </b></td>
+                                    <td>
+                                        <select name="tmpCountry" id="tmpCountry">
+                                            <option value="0">--Select--</option>
+                                            <option value="India" th:selected="${temporaryAddress?.country == 'India'}">India</option>
+                                        </select>   
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="errorLabel">
+                            <span th:text="${errorAddress ne null} ? ${errorAddress}: ''"></span><br/><br/>
+                            <span th:text="${errorTmpAddress ne null} ? ${errorTmpAddress}: ''"></span>
+                        </div>
+                    </div>     
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

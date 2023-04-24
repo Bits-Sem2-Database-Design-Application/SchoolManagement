@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Document defines fragment for Student Application Form</title>
+    </head>
+    <body>
+        <div th:fragment="student-form">
+            <h3 class="formHeader">:: Student Application Details &nbsp;</h3>
+            <div class="divTable" style="width: 75%; height: 100%; border: 1px solid #000; margin: auto;">
+                <div class="divTableBody">
+                    <div class="divTableRow">
+                        <div class="divTableCell">&nbsp;</div>
+                        <div class="divTableCell">&nbsp;</div>
+                        <div class="divTableCell">&nbsp;</div>
+                    </div>
+                    <div class="divTableRow">
+                        <div class="formLabel">* First name:&nbsp;</div>
+                        <div class="divTableCell">
+                            <input type="text" id="firstName" name="firstName"/>
+                        </div>
+                        <div class="errorLabel" th:text="${errorFirstName ne null} ? ${errorFirstName}: ''"></div>
+                    </div>
+                    <div class="divTableRow">
+                        <div class="formLabel">* Last name:&nbsp;</div>
+                        <div class="divTableCell">
+                            <input type="text" id="lastName" name="lastName"/>
+                        </div>
+                        <div class="errorLabel" th:text="${errorLastName ne null} ? ${errorLastName}: ''"></div>
+                    </div>
+                    <div class="divTableRow">
+                        <div class="formLabel">* Birth Date:&nbsp;</div>
+                        <div class="divTableCell">
+                            <input type="date" id="birthDate" name="birthDate"/>
+                        </div>
+                        <div class="errorLabel" th:text="${errorBirthDate ne null} ? ${errorBirthDate}: ''"></div>
+                    </div>
+                    <div class="divTableRow">
+                        <div class="formLabel">* Gender:&nbsp;</div>
+                        <div class="divTableCell">
+                            Male:&nbsp;<input type="radio" id="genderMale" name="gender" value="Male">
+                            Female:&nbsp;<input type="radio" id="genderFemale" name="gender" value="Female">
+                        </div>
+                        <div class="errorLabel" th:text="${errorGender ne null} ? ${errorGender}: ''"></div>
+                    </div>
+                    <div class="divTableRow">
+                        <div class="formLabel">* Email:&nbsp;</div>
+                        <div class="divTableCell">
+                            <input type="email" id="email" name="email"/>
+                        </div>
+                        <div class="errorLabel" th:text="${errorEmail ne null} ? ${errorEmail}: ''"></div>
+                    </div>
+                    <div class="divTableRow">
+                        <div class="formLabel">* Select Program:&nbsp;</div>
+                        <div class="divTableCell">
+                            <select name="program" id="program">
+                                <option value="0">--Select Program --</option>
+                                <option th:each="program : ${programList}" th:value="${program.id}" th:text="${program.name}"></option>
+                            </select>
+                        </div>
+                        <div class="errorLabel" th:text="${errorProgram ne null} ? ${errorProgram}: ''"></div>
+                    </div>
+                    
+                    <div class="divTableRow">
+                        <div class="formLabel">* Upload Certificates As Single PDF:&nbsp;</div>
+                        <div class="divTableCell">
+                            <input type="file" id="supportedDocsAsPDF" name="supportedDocsAsPDF"/>
+                        </div>
+                        <div class="errorLabel" th:text="${errorSupportedDocsAsPDF ne null} ? ${errorSupportedDocsAsPDF}: ''"></div>
+                    </div>
+                    
+                    <div class="divTableRow">
+                        <div class="formLabel">* Primary Number:&nbsp;</div>
+                        <div class="divTableCell">
+                            <input type="text" id="countryCode" value="91" maxlength="2" size="2" name="countryCode"/>&nbsp;
+                            <input type="text" id="phoneNumber" maxlength="10" size="10" name="phoneNumber"/>
+                            <select name="contactType" id="contactType">
+                                <option value="Unspecified">--Select--</option>
+                                <option value="Mobile">Mobile</option>
+                                <option value="Landline">Landline</option>
+                            </select>                            
+                        </div>
+                        <div class="errorLabel" th:text="${errorPhoneNumber ne null} ? ${errorPhoneNumber}: ''"></div>
+                    </div>
+                    <div class="divTableRow">
+                        <div class="formLabel">Alternate Number:&nbsp;</div>
+                        <div class="divTableCell">
+                            <input type="text" id="altCountryCode" value="91" maxlength="2" size="2" name="altCountryCode"/>&nbsp;
+                            <input type="text" id="altPhoneNumber" maxlength="10" size="10" name="altPhoneNumber"/>
+                            <select name="altContactType" id="altContactType">
+                                <option value="0">--Select--</option>
+                                <option value="1">Mobile</option>
+                                <option value="2">Landline</option>
+                            </select>                            
+                        </div>
+                        <div class="errorLabel" th:text="${errorAltPhoneNumber ne null} ? ${errorAltPhoneNumber}: ''"></div>
+                    </div>  
+                    <div class="divTableRow">
+                        <div class="divTableCell">&nbsp;</div>
+                        <div class="divTableCell">&nbsp;</div>
+                        <div class="divTableCell">&nbsp;</div>
+                    </div>
+                    <div class="divTableRow">
+                        <div class="divTableCell">&nbsp;</div>
+                        <div class="divTableCell">&nbsp;</div>
+                        <div class="divTableCell">&nbsp;</div>
+                    </div>
+                    <div class="divTableRow">
+                        <div class="divTableCell">&nbsp;</div>
+                        <div class="divTableCell">&nbsp;</div>
+                        <div class="divTableCell">&nbsp;</div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

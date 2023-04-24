@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/layout :: layout(~{::title}, ~{::nav}, ~{::section})}">
+    <head>
+        <title>Student Management System :: Student Home</title>
+    </head>
+    <body>
+        <nav style="width: 100%; margin: auto;">
+            <div th:replace="~{navbar.html :: studentNavBar}"></div>
+        </nav>
+
+        <section>
+            <p>
+            <div class="successMessage" th:if="${successMessage ne null}" 
+                 th:text="'&nbsp;'+ ${successMessage}" 
+                 style="font-size: 14px; width: 95%;">
+            </div>
+            <div class="errorMessage" th:if="${errorMessage ne null}" 
+                 th:text="'&nbsp;'+ ${errorMessage}" 
+                 style="font-size: 14px; width: 95%;">
+            </div>
+            <div style="width: 95%; text-align: center; margin: auto;">
+                <h1>Welcome Student!!!</h1>
+                <p style="font-size: 14px; ">
+                    This portal which will allow you to perform following tasks:</p>
+                <div style="width: 50%; margin: auto;">
+                    <ul style="font-size: 14px; text-align: left;">
+                        <li>Reset Password</li>
+                        <li>Change Password</li>
+                        <li>Post Change Request</li>
+                        <li>View 'Open' and 'Closed' Change Requests</li>
+                        <li>Enter Fees Transaction Details</li>
+                        <li>Download Fees Receipt</li>
+                        <li>View Performance Report</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>
+

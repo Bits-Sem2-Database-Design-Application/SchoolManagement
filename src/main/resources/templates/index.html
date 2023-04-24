@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/layout :: layout(~{::title}, ~{::nav}, ~{::section})}">
+    <head>
+        <title>Student Management System :: Home</title>
+    </head>
+    <body>
+        <nav style="width: 100%; margin: auto;">
+            <div th:replace="~{navbar.html :: landingNavBar}"></div>
+        </nav>
+        <section>
+            <p>
+            <div style="margin: auto; width: 95%;">
+                <div class="successMessage" style="width: 100%;" 
+                     th:if="${successMessage ne null}" 
+                     th:text="'&nbsp;'+ ${successMessage}">
+                </div>    
+                <div class="successMessage" style="width: 100%;" 
+                     th:if="${successMessage1 ne null}" 
+                     th:text="'&nbsp;'+ ${successMessage1}">
+                </div>    
+                <div style="width: 100%; text-align: center; ">
+                    <h1>Welcome to School Management System !!!</h1>
+                    <p style="font-size: 14px; text-align: left;">
+                        This is self service portal created for new applicants, 
+                        students and school staff to access and manage schools 
+                        related information and operations. It allows users to 
+                        perform following operations:  
+                </div>
+                <div>
+                    <div style="width: 48%; text-align: center; float: left;">
+                        <p style="font-size: 14px; text-align: left;"> 
+                            <b>A. New Student Applicant</b>
+                        <ul style="font-size: 14px; text-align: left;">
+                            <li>Application to enroll for a Program</li>
+                            <li>Check application status</li>
+                            <li>Register login user on enrolling</li>
+                        </ul>
+                        <p style="font-size: 14px; text-align: left;"> 
+                            <b>B. Students</b>
+                        <ul style="font-size: 14px; text-align: left;">
+                            <li>Login to Portal</li>
+                            <li>Forgot Password</li>
+                            <li>Change Password</li>
+                            <li>Post Change Request</li>
+                            <li>View 'Open' and 'Closed' Change Requests</li>
+                            <li>Enter Fees Transaction Details</li>
+                            <li>Download Fees Receipt</li>
+                            <li>View Performance Report</li>
+                        </ul>
+                    </div>
+                    <div style="width: 48%; text-align: center; float: right;">
+                        <p style="font-size: 14px; text-align: left;"> 
+                            <b>C. Admin Staff</b>
+                        <ul style="font-size: 14px; text-align: left;">
+                            <li>View, Approve or Reject Student Application</li>
+                            <li>Add New Enrollment</li>
+                            <li>View and Edit Student Profile</li>
+                            <li>Generate Batch-wise Student Report</li>
+                            <li>Update Student Fee Details</li>
+                            <li>View Report: Pending Fees</li>
+                            <li>View Report: Fees Transactions</li>
+                            <li>Update Student Marks</li>
+                            <li>Batch-wise Report: Student Pass or Failed</li>
+                        </ul>
+                    </div>
+
+                </div>    
+            </div>
+        </section>
+    </body>
+</html>
+

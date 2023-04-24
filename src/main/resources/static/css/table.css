@@ -1,0 +1,12 @@
+
+.tb {
+    border-collapse: collapse;
+    width: 100%;
+}
+.tb th, .tb td {
+    padding: 5px;
+    border: solid 1px #777;
+}
+.tb th {
+    background-color: lightblue;
+}

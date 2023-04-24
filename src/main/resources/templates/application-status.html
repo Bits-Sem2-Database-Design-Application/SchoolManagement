@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/layout :: layout(~{::title}, ~{::nav}, ~{::section})}">
+    <head>
+        <title>Student Management System :: Home</title>
+    </head>
+    <body>
+        <nav style="width: 100%; margin: auto;">
+            <div th:replace="~{navbar.html :: landingNavBar}"></div>
+        </nav>
+        <section>
+            <p>
+            <div class="errorMessage" th:if="${errorMessage ne null}" th:text="'<p>&nbsp;'+ ${errorMessage}"></div>
+            <h3 th:text="'Status: &nbsp;' + ${app.status}" style="width: 95%; margin: auto;"/>
+            <p>
+            <h3 class="formHeader" style="width: 95%;">:: Student Application Status &nbsp;</h3>    
+            <div class="divTable" style="width: 95%; margin: auto; border: 1px solid #000;">
+                <div class="divTableBody">
+                    <div class="divTableRow">
+                        <div class="formLabel">First Name: </div>
+                        <div class="divTableCell" th:text="${app.firstName}">&nbsp;</div>
+                        <div class="formLabel">Last Name: </div>
+                        <div class="divTableCell" th:text="${app.lastName}">&nbsp;</div>
+                    </div>
+                    <div class="divTableRow">
+                        <div class="formLabel">Birth Date: </div>
+                        <div class="divTableCell" th:text="${app.birthdate}">&nbsp;</div>
+                        <div class="formLabel">Gender: </div>
+                        <div class="divTableCell" th:text="${app.gender}">&nbsp;</div>
+                    </div>
+                    <div class="divTableRow">
+                        <div class="formLabel">Application Date: </div>
+                        <div class="divTableCell" th:text="${app.applicationDate}">&nbsp;</div>
+                        <div class="formLabel">Program: </div>
+                        <div class="divTableCell" th:text="${app.programId.name}">&nbsp;</div>
+                    </div>
+                    <div class="divTableRow">
+                        <div class="formLabel">Email: </div>
+                        <div class="divTableCell" th:text="${app.email}">&nbsp;</div>
+                        <div class="formLabel" style="vertical-align: top;">&nbsp;</div>
+                        <div class="divTableCell">&nbsp;</div>
+                    </div>
+                    <div class="divTableRow">
+                        <div class="formLabel" style="vertical-align: top;">Status: </div>
+                        <div class="divTableCell" style="vertical-align: top;" th:text="${app.status}">&nbsp;</div>
+                        <div class="formLabel" style="vertical-align: top;">Review Comments: </div>
+                        <div class="divTableCell">
+                            <textarea cols="25" rows="3" readonly="readonly" th:text="${app.comments}"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p>
+            <!-- Form shown when application status is 'Information Needed' -->
+            <div th:style="${app.status ne 'Information Needed' ? 'display:none;' : ''}+'width: 95%; margin: auto;'"> 
+                <h3 style="width: 100%; margin: auto;">Provide additional information as requested in review comments</h3> 
+                <hr>
+                <form method="POST" action="/student-application/upload-information-needed" enctype="multipart/form-data">
+                    <input type="hidden" th:attr="value=${app.id}" name="applicationId" />
+                    <div class="divTable" style="width: 100%; margin: auto; border: 1px solid #000;">
+                        <div class="divTableBody">
+                            <div class="divTableRow">
+                                <div class="formLabel">* Upload Certificates As Single PDF:&nbsp;</div>
+                                <div class="divTableCell">
+                                    <input type="file" id="supportedDocsAsPDF" name="supportedDocsAsPDF"/>
+                                </div>
+                                <div class="errorLabel" th:text="${errorSupportedDocsAsPDF ne null} ? ${errorSupportedDocsAsPDF}: ''"></div>
+                                <div class="divTableCell"><input type="submit" /></div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- Form shown when application status is 'Approved' -->
+            <div th:style="${app.status ne 'Approved' ? 'display:none;' : ''}+'width: 95%; margin: auto;'"> 
+                <h3 style="width: 100%; margin: auto;">Pay fees for first semester to enroll for the program. Submit transaction details using form below.</h3> 
+                <hr>
+                <form action="/student-application/submit-fee-details" method="POST">
+                    <input type="hidden" th:attr="value=${app.id}" name="studentId"/> 
+                    <div class="divTable" style="width: 100%; margin: auto; border: 1px solid #000;">
+                        <div class="divTableBody">
+                            <div class="divTableRow">
+                                <div class="divTableRow">
+                                    <div class="formLabel">* Transaction Date: &nbsp;</div>
+                                    <div class="divTableCell"><input type="date" name="transactionDate"/></div>
+                                    <div class="errorLabel" th:text="${errorTransactionDate ne null} ? ${errorTransactionDate}: ''"></div>
+                                </div>
+                                <div class="divTableRow">
+                                    <div class="formLabel">* Bank: &nbsp;</div>
+                                    <div class="divTableCell"><input type="text" name="bank"/></div>
+                                    <div class="errorLabel" th:text="${errorBank ne null} ? ${errorBank}: ''"></div>
+                                </div>
+                                <div class="divTableRow">
+                                    <div class="formLabel">* Transaction Number: &nbsp;</div>
+                                    <div class="divTableCell"><input type="text" name="transactionNumber"/></div>
+                                    <div class="errorLabel" th:text="${errorTransactionNumber ne null} ? ${errorTransactionNumber}: ''"></div>
+                                </div>
+                                <div class="divTableRow">
+                                    <div class="formLabel">* Transaction Amount: &nbsp;</div>
+                                    <div class="divTableCell"><input type="text" name="transactionAmount"/></div>
+                                    <div class="errorLabel" th:text="${errorTransactionAmount ne null} ? ${errorTransactionAmount}: ''"></div>
+                                </div>
+                                <div class="divTableRow">
+                                    <div class="formLabel">&nbsp;</div>
+                                    <div class="divTableCell">
+                                        <input type="submit" value="Submit"/>
+                                    </div>
+                                    <div class="errorLabel">&nbsp;</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- Shown when applicant status is enrolled -->
+            <div th:style="${app.status ne 'Enrolled' ? 'display:none;' : ''}+'width: 95%; margin: auto;text-align: center;'"> 
+                <h3 style="width: 100%; margin: auto;">Create account to access portal using your credentials</h3> 
+                <p>
+                <a th:href="@{/register}" style="font-size: 14;">Create Account (Register)</a>
+            </div>
+        </section>
+    </body>
+</html>
+

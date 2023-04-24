@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/layout :: layout(~{::title}, ~{::nav}, ~{::section})}">
+    <head>
+        <title>Student Management System :: Admin Home</title>
+    </head>
+    <body>
+        <nav style="width: 100%; margin: auto;">
+            <div th:replace="~{navbar.html :: adminNavBar}"></div>
+        </nav>
+        <section>
+            <p>
+            <div class="successMessage" th:if="${successMessage ne null}" 
+                 th:text="'&nbsp;'+ ${successMessage}" 
+                 style="font-size: 14px; width: 95%;">
+            </div>
+            <div class="errorMessage" th:if="${errorMessage ne null}" 
+                 th:text="'&nbsp;'+ ${errorMessage}" 
+                 style="font-size: 14px; width: 95%;">
+            </div>
+            <div style="width: 95%; text-align: center; margin: auto;">
+                <h1>Welcome Administrator!!!</h1>
+                <p style="font-size: 14px; ">
+                    This portal which will allow you to perform following tasks:</p>
+                <div style="width: 50%; margin: auto;">
+                    <ul style="font-size: 14px; text-align: left;">
+                        <li>View, Approve or Reject Student Application</li>
+                        <li>Add New Enrollment</li>
+                        <li>View and Edit Student Profile</li>
+                        <li>Generate Batch-wise Student Report</li>
+                        <li>Update Student Fee Details</li>
+                        <li>View Report: Pending Fees</li>
+                        <li>View Report: Fees Transactions</li>
+                        <li>Update Student Marks</li>
+                        <li>Batch-wise Report: Student Pass or Failed</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>
+

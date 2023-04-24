@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Document defines fragments for navigation bar</title>
+    </head>
+    <body>
+        <div class="navbar" th:fragment="landingNavBar">
+            <a href="/" 
+               th:classappend="${isHomePage} ? active : notActive">Home</a>
+            <div class="dropdown">
+                <button class="dropbtn">Student Application
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="/student-application/apply">Apply</a>
+                    <a href="/student-application/check-status/email">Check status</a>
+                </div>
+            </div>
+            <a href="/login" style="float:right" 
+               th:classappend="${isLoginPage}? active : notActive">Login</a>
+        </div>        
+        
+        <div class="navbar" th:fragment="studentNavBar">
+            <a href="/student" 
+               th:classappend="${isHomePage} ? active : notActive">Home</a>
+            <a href="javascript: document.logoutForm.submit()" style="float:right">Logout</a>
+            <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+                <input hidden type="submit" value="Logout" />
+            </form>
+            <a href="/student/change-password" style="float:right">Change Password</a>
+            <div class="dropdown" style="float:right">
+                <button class="dropbtn">Change Request
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="/student/change-request/post">Post New</a>
+                    <a href="/student/change-request/list?status=Open">All Open</a>
+                    <a href="/student/change-request/list?status=Closed">All Closed</a>
+                </div>
+            </div>
+            <div class="dropdown" style="float:right">
+                <button class="dropbtn">Fees
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="#">Download Fee Receipt</a>
+                    <a href="#">Add Fees Transaction Details</a>
+                </div>
+            </div>
+            <div class="dropdown" style="float:right">
+                <button class="dropbtn">Performance Report
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="#">Semester I</a>
+                    <a href="#">Semester II</a>
+                    <a href="#">Semester III</a>
+                    <a href="#">Semester IV</a>
+                </div>
+            </div>
+            
+        </div>              
+
+        <!-- Navigation bar for Admin account -->
+        <div class="navbar" th:fragment="adminNavBar">
+            <a href="/home" 
+               th:classappend="${isHomePage} ? active : notActive">Home</a>
+            
+            <div class="dropdown">
+                <button class="dropbtn">Student Application
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="/admin/student-application/review">Pending Review</a>
+                    <a href="/admin/student-application/list-ready-to-enroll">Pending Enrollment</a>
+                    <a href="/admin/list-enrolled-students">Enrolled Student</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">Change Request
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="/admin/change-request/list?status=Open">All Open</a>
+                    <a href="/admin/change-request/list?status=Closed">All Closed</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">Fees
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="#">Pending Fees</a>
+                    <a href="#">Fee Transactions</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">Marks
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="#">Upload Student Marks</a>
+                    <a href="#">Batch-wise Report</a>
+                </div>
+            </div>
+            
+            <a href="javascript: document.logoutForm.submit()" style="float:right">Logout</a>
+            <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+                <input hidden type="submit" value="Logout" />
+            </form>
+
+        </div>              
+
+        <!-- Old Navigation Bar -- to be removed -->
+        <div th:fragment="defaultNavigation">
+            <ul id="landingMenu">
+                <li th:classappend="${isHomePage} ? active : notActive"><a href="/">Home</a></li>
+                <li th:classappend="${isApplyPage}? active : notActive"><a href="/student-application/apply">Student Application</a></li>
+                <li><a href="/news">News</a></li>
+                <li><a href="/contact">Contact</a></li>
+                <li style="float:right" th:classappend="${isLoginPage}? active : notActive"><a href="/login">Login</a></li>
+            </ul>                                
+        </div>
+    </body>
+</html>

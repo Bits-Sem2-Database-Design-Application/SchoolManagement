@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/layout :: layout(~{::title}, ~{::nav}, ~{::section})}">
+    <head>
+        <title>Apply for Programs</title>
+    </head>
+    <body>
+        <nav><div th:replace="~{navbar.html :: landingNavBar}"></div></nav>
+        <section>
+            <div class="errorMessage" th:if="${hasErrorMessage}" th:text="'&nbsp;'+ ${errorMessage}"></div>    
+            <br/>
+            <form method="post" th:action="@{/student-application/submit}" enctype="multipart/form-data"> <!-- enctype="multipart/form-data" -->
+
+                <div class="tab">
+                    <button type="button" class="tablinks" onclick="openTab(event, 'Student')" id="defaultOpen">Student</button>
+                    <button type="button" class="tablinks" onclick="openTab(event, 'Address')">Address</button>
+                </div>
+
+                <!-- Tab content -->
+                <div id="Student" class="tabcontent">
+                    <div th:replace="~{forms/application-form.html :: student-form}"></div> 
+                </div><!-- end of student tab -->
+                <div id="Address" class="tabcontent">
+                    <div th:replace="~{forms/address-form.html :: address-form}"></div>
+                </div>
+                <p>
+                <div style="margin: auto; width: 75%; text-align: center; ">
+                    <button type="submit" class="formButton" >Submit</button>
+                </div>
+                <p>
+            </form>
+            <script>
+                document.getElementById("defaultOpen").click();
+            </script>
+        </section>
+    </body>
+</html>
