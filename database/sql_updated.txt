@@ -183,3 +183,62 @@ INSERT INTO program (name, abbreviation, fees) VALUES ('MTECH Cloud Computing', 
 
 INSERT INTO fees_type(name) VALUES('SEMESTER');
 INSERT INTO fees_type(name) VALUES('EXAM');
+
+CREATE DEFINER=`sa`@`%` PROCEDURE `generate_otp`(IN length INT, OUT otp INT)
+BEGIN
+    DECLARE min_length INT DEFAULT 4;
+    DECLARE i INT DEFAULT 0;
+    DECLARE str VARCHAR(255) DEFAULT '';
+    SET length = IF(length < min_length, 
+                     min_length, length);
+    WHILE i < length DO
+        SET str = CONCAT(str, FLOOR(1 + RAND() * 9)); 
+        SET i = i + 1;
+    END WHILE;
+    SET otp = CAST(str AS UNSIGNED); 
+END
+
+CREATE VIEW `student_info_view` AS
+    SELECT 
+        `sa`.`ID` AS `id`,
+        `sa`.`FIRST_NAME` AS `first_name`,
+        `sa`.`LAST_NAME` AS `last_name`,
+        `sa`.`BIRTHDATE` AS `birthdate`,
+        `sa`.`GENDER` AS `gender`,
+        `sa`.`EMAIL` AS `email`,
+        `p`.`ABBREVIATION` AS `abbreviation`,
+        `s`.`REGISTRATION_NUMBER` AS `registration_number`,
+        `s`.`CURRENT_SEMISTER` AS `current_semister`,
+        `a`.`CITY` AS `city`,
+        `c`.`COUNTRY_CODE` AS `country_code`,
+        `c`.`CONTACT_NUMBER` AS `contact_number`,
+        `c`.`CONTACT_TYPE` AS `contact_type`
+    FROM
+        ((((((`student_application` `sa`
+        JOIN `program` `p` ON ((`sa`.`PROGRAM_ID` = `p`.`ID`)))
+        JOIN `student` `s` ON ((`sa`.`ID` = `s`.`ID`)))
+        JOIN `student_address` `saa` ON ((`s`.`ID` = `saa`.`STUDENT_ID`)))
+        JOIN `address` `a` ON (((`a`.`ID` = `saa`.`ADDRESS_ID`)
+            AND (`saa`.`ADDRESS_TYPE` = 'PERMANENT'))))
+        JOIN `student_contact` `sc` ON ((`s`.`ID` = `sc`.`STUDENT_ID`)))
+        JOIN `contact` `c` ON (((`c`.`ID` = `sc`.`CONTACT_ID`)
+            AND (`sc`.`CONTACT_TYPE` = 'PRIMARY'))))
+
+
+CREATE TRIGGER `student_BEFORE_INSERT` BEFORE INSERT ON `student` FOR EACH ROW BEGIN
+  DECLARE current_year VARCHAR(4);
+  DECLARE v_program_id BIGINT;
+  DECLARE count_enrolled INT;
+  
+  SELECT program_id INTO v_program_id FROM student_application
+  WHERE id = NEW.id;
+   
+  SET current_year = YEAR(CURDATE());
+  SET count_enrolled = (SELECT COUNT(*) FROM student WHERE
+                        YEAR(enrollment_date) = current_year) + 1;
+
+  SET NEW.registration_number = CONCAT(current_year, '_',
+      LPAD(v_program_id, 3, '0'), '_', 
+      LPAD(count_enrolled, 5, '0'));
+
+END
